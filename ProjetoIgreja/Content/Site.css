@@ -1,0 +1,130 @@
+﻿body {
+    background: url(../Imagens/festa.png) fixed center;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    opacity: 0.96;
+}
+
+@media (min-width: @screen-sm-min) {
+}
+
+#menu-principal {
+    /*border:1px solid red;*/
+    font-size: 2.1em;
+    margin: 0px 0px 0px 18%;
+   
+}
+
+.navbar-default {
+    background-color: rgba(255,255,255, 0.3);
+    border-color: rgba(255,255,255, 0.3);
+}
+
+    #menu-principal li a {
+        text-decoration: none;
+        /*color: cadetblue;*/
+    }
+
+#proximas-festas-quadrado {
+}
+
+.box-principal {
+    margin-bottom: 70px;
+}
+
+
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    margin-top: 80px;
+    background-color: aliceblue;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+#agenda-semanal,#sobre,#pregacoes-online,#doacoes,#contato,#pedir-oracao {
+    min-height: 500px;
+}
+
+#sobre {
+    width: 116%;
+    margin-left: -8%;
+    margin-right: -5%;
+    /*background: url(../Imagens/festa4.png) fixed center;*/
+    background-color:#fff;
+    opacity:1 !important;
+}
+
+.caixas-sobre {
+    border-radius: 10px;
+   
+}
+
+#agenda_semanal_titulo, #sobre_titulo {
+    font-family: 'Indie Flower', cursive;
+    /*padding-top: 30px;*/
+    /*padding-left: 40px;*/
+    /*margin-bottom: 20px;*/
+    margin: 10px auto;
+    font-size: 52px;
+    font-weight: 200;
+    line-height: 2.1428571435;
+    color: inherit;
+    /*background-color: #a3d5fa;*/
+    background-color:#67caef;
+    /*animation-name: animacaoBolada;
+    animation-duration: 0.7s;
+    animation-timing-function: ease;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-play-state: running;*/
+    text-align: center;
+}
+
+    #agenda-semanal:hover {
+        width: 100%;
+    }
+
+@keyframes animacaoBolada {
+    0% {
+        /*background: black;*/
+        width: 15em;
+    }
+
+    25% {
+        /*background: green;*/
+        width: 18em;
+    }
+
+    50% {
+        /*background: blue;*/
+        width: 13em;
+    }
+
+    75% {
+        /*background: red;*/
+        width: 22em;
+    }
+
+    100% {
+        /*background: yellow;*/
+        width: 10em;
+    }
+}
+
+
+
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}

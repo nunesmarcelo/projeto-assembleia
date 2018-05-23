@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu">
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico|Lobster" rel="stylesheet">
+    <title>@ViewBag.Title - Meu Aplicativo ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+</head>
+<body style="font-family:'Ubuntu', serif;z-index:1;">
+    <div class=" navbar navbar-default " style="height:100px;">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @* @Html.ActionLink("Nome do aplicativo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+            </div>
+            <div class="navbar-collapse collapse" style="height:100px;">
+                <ul class="nav navbar-nav" id="menu-principal">
+                    @*<li>@Html.ActionLink("Sobre", "About", "Home", new { @class = "glyphicon glyphicon-search" })</li>
+                        <li style="font-size:42px;">@Html.ActionLink("Início", "Index", "Home", new { @class = "glyphicon glyphicon-home" })</li>
+                        <li>@Html.ActionLink("Divulgar", "Contact", "Home", new { @class = "glyphicon glyphicon-plus" })</li>*@
+                    <li><a href="#sobre"><span class="glyphicon glyphicon-info-sign"></span>Sobre</a></li>
+                    <li><a href="#pregacoes-online"><span class="glyphicon glyphicon-play"></span>Pregações</a></li>
+                    <li><a href="#menu-principal" style="font-size:1.5em;"><span class="glyphicon glyphicon-home"></span>Início</a></li>
+                    <li><a href="#doacoes"><span class="glyphicon glyphicon-heart"></span>Doações</a></li>
+                    <li><a href="#contato"><span class="glyphicon glyphicon-user"></span>Contato</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <a href="#menu-principal" style="width:15px;height:15px;position:absolute;bottom:20px;right:20px;"><span class="glyphicon glyphicon-arrow-up">Topo</span></a>
+    <div class="container body-content" style="z-index:2;">
+
+        @RenderBody()
+    </div>
+    <div>
+        <hr />
+        <footer class="text-center" style="color:antiquewhite">
+            <p>&copy; @DateTime.Now.Year - Desenvolvido por Marcelo Nunes</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

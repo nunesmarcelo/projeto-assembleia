@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="assembleiaModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="agenda">
+          <Key>
+            <PropertyRef Name="idagenda" />
+          </Key>
+          <Property Name="idagenda" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="periodo" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="evento">
+          <Key>
+            <PropertyRef Name="idevento" />
+          </Key>
+          <Property Name="idevento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="data" Type="datetime" Precision="0" />
+          <Property Name="descricao" Type="varchar" MaxLength="45" />
+          <Property Name="nome" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="local" Type="varchar" MaxLength="45" />
+          <Property Name="agenda_idagenda" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_evento_agenda">
+          <End Role="agenda" Type="Self.agenda" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="evento" Type="Self.evento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="agenda">
+              <PropertyRef Name="idagenda" />
+            </Principal>
+            <Dependent Role="evento">
+              <PropertyRef Name="agenda_idagenda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="assembleiaModelStoreContainer">
+          <EntitySet Name="agenda" EntityType="Self.agenda" Schema="assembleia" store:Type="Tables" />
+          <EntitySet Name="evento" EntityType="Self.evento" Schema="assembleia" store:Type="Tables" />
+          <AssociationSet Name="fk_evento_agenda" Association="Self.fk_evento_agenda">
+            <End Role="agenda" EntitySet="agenda" />
+            <End Role="evento" EntitySet="evento" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="assembleiaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="agenda">
+          <Key>
+            <PropertyRef Name="idagenda" />
+          </Key>
+          <Property Name="idagenda" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="periodo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="evento" Relationship="Self.fk_evento_agenda" FromRole="agenda" ToRole="evento" />
+        </EntityType>
+        <EntityType Name="evento">
+          <Key>
+            <PropertyRef Name="idevento" />
+          </Key>
+          <Property Name="idevento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="data" Type="DateTime" />
+          <Property Name="descricao" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="nome" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="local" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="agenda_idagenda" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="agenda" Relationship="Self.fk_evento_agenda" FromRole="evento" ToRole="agenda" />
+        </EntityType>
+        <Association Name="fk_evento_agenda">
+          <End Role="agenda" Type="Self.agenda" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="evento" Type="Self.evento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="agenda">
+              <PropertyRef Name="idagenda" />
+            </Principal>
+            <Dependent Role="evento">
+              <PropertyRef Name="agenda_idagenda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="assembleiaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="agenda" EntityType="Self.agenda" />
+          <EntitySet Name="evento" EntityType="Self.evento" />
+          <AssociationSet Name="fk_evento_agenda" Association="Self.fk_evento_agenda">
+            <End Role="agenda" EntitySet="agenda" />
+            <End Role="evento" EntitySet="evento" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="assembleiaModelStoreContainer" CdmEntityContainer="assembleiaEntities">
+          <EntitySetMapping Name="agenda">
+            <EntityTypeMapping TypeName="assembleiaModel.agenda">
+              <MappingFragment StoreEntitySet="agenda">
+                <ScalarProperty Name="idagenda" ColumnName="idagenda" />
+                <ScalarProperty Name="periodo" ColumnName="periodo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="evento">
+            <EntityTypeMapping TypeName="assembleiaModel.evento">
+              <MappingFragment StoreEntitySet="evento">
+                <ScalarProperty Name="idevento" ColumnName="idevento" />
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="local" ColumnName="local" />
+                <ScalarProperty Name="agenda_idagenda" ColumnName="agenda_idagenda" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

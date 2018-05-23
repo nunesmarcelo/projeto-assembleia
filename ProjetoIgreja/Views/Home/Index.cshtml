@@ -1,0 +1,278 @@
+﻿@model ProjetoIgreja.Models.IndexViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#agenda-semanal").mouseenter(function () {
+            $(this).animate({ "margin-left": "-8%", "margin-right": "-5%;", "width": "115%" }, "fast").css({ "background": "url(../Imagens/relogio.jpg) fixed center" });
+           // $("body").css({ "background": "url(../Imagens/cruz.jpg) fixed center" });
+            //$(this).css({ "margin-left": "-100px", "margin-right": "-100px;", "width": "120%", "background-color": "aliceblue" })
+            
+        });
+        $("#agenda-semanal").mouseleave(function () {
+            $(this).animate({ "width": "100%", "margin-left": "0px" }, "fast").css({ "background": "aliceblue" });
+            //$("body").css({ "background": "url(../Imagens/festa.png) fixed center" });
+        });
+    });
+
+
+
+
+    function insere_agenda_click() {
+        $("#inicio,#fim,#nome,#local,#data,#descricao").val("");
+        $("#modalCadastroAgenda").modal("show");
+
+    }
+
+    function add_evento() {
+
+        var html = "";
+
+        //Recebe o tamanho da tabela para distribuir id's dos campos
+        var tamanhoTabela = $("#tabela_agenda tbody tr").size();
+
+        //Formata a data apenas para mostrar na tabela
+        var dataInvertida = ($("#data").val()).split("-");
+        var dataCorreta = dataInvertida[2] + "/" + dataInvertida[1] + "/" + dataInvertida[0];
+
+        html += "<tr>" +
+            '<td>' + $('#nome').val() + "</td>" +
+            '<td>' + dataCorreta + "</td>" +
+            '<td>' + $('#local').val() + "</td>" +
+            '<input type="hidden" name="model.eventos[' + tamanhoTabela + '].nome" value="' + $('#nome').val() + '"/>' +
+            '<input type="hidden" name="model.eventos[' + tamanhoTabela + '].local" value="' + $('#local').val() + '"/>' +
+            '<input type="hidden" name="model.eventos[' + tamanhoTabela + '].descricao" value="' + $('#descricao').val() + '"/>' +
+            '<input type="hidden" name="model.eventos[' + tamanhoTabela + '].data" value="' + $('#data').val() + '"/>' +
+            '<input type="hidden" name="model.hora[' + tamanhoTabela + ']" value="' + $('#hora').val() + '"/>' +
+            '<input type="hidden" name="model.minutos[' + tamanhoTabela + ']" value="' + $('#minutos').val() + '"/>';
+
+        $("#corpo_tabela").append(html);
+
+        $("#nome,#data,#local,#descricao").val("");
+
+
+    }
+
+</script>
+
+@if (TempData["msgSucesso"] != null)
+{
+    <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        @TempData["msgSucesso"]
+    </div>
+}
+else
+{
+    if (TempData["msgErro"] != null)
+    {
+        <div class="alert alert-success">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            @TempData["msgErro"]
+        </div>
+    }
+}
+
+<div id="agenda-semanal">
+    <div id="agenda_semanal_titulo">
+        Agenda Semanal <button id="add_agenda" onclick="insere_agenda_click()" class="btn btn-primary"><span class="glyphicon-plus">Adicionar</span></button>
+    </div>
+
+    <div>
+        @if (Model.agenda != null && Model.agenda.evento != null)
+        {
+            foreach (var evento in Model.agenda.evento)
+            {
+                <div class="col-md-12 text-center">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                    @evento.data - @evento.nome
+                    <br />
+                    Local: @evento.local
+                    <br />
+                    @if (evento.descricao != null)
+                    {
+                        <span>Descrição: @evento.descricao</span>
+                    }
+                   
+                </div>
+            }
+        }
+    </div>
+</div>
+
+
+
+
+
+<div id="sobre">
+    <div id="sobre_titulo">
+        Sobre Nós
+    </div>
+    
+    <div class="col-sm-12" style="margin-top:40px;margin-bottom:40px;">
+        @*<h4>esta seção se destina a apresentar os objetivos aos quais se destina a existência da organização assembléia de deus na cidade de sete lagoas, bem como apresentar os obreiros que
+        nas igrejas congregam e cooperam, para o avanço da organização e a aproximação cada vez mais verdadeira do reino dos céus.</h4>*@
+        <div class="col-sm-12 row">
+            <div class="col-sm-4 caixas-sobre text-center" style="background-color:rgba(0, 0, 255,0.3);font-family: 'Pacifico', cursive;">
+                <span style="font-size:20pt;">Missão</span>
+                <hr />
+                <p>
+                    Ser sempre uma igreja acolhedora e missionária, tudo na direção de Deus, num compromisso sério com Ele, e fazendo com que seu nome seja glorificado e exaltado pelos povos. Ainda buscar conhecê-Lo na Sua intimidade, poder, Graça e em Sua força. Assim, todo o ministério e membros das nossas igrejas, buscam na Palavra de Deus e na leitura bíblica, uma visão de mobilização de todo povo de Deus pelo crescimento do reino.
+                </p>
+            </div>
+            
+            <div class="col-sm-4 caixas-sobre text-center" style="background-color:rgba(255 , 0 , 0 , 0.3);font-family: 'Pacifico', cursive;">
+                <span style="font-size:20pt;">Visão</span>
+                <hr />
+                <p>A visão das Assembleias de Deus – Ministério de Cel. Fabriciano e Ipatinga/MG é levar as pessoas a ter um estreito relacionamento com Deus e fazer Jesus conhecido de todos os povos, no poder do Espírito Santo. Tudo isso pautado em sentimentos que Deus um dia colocou no coração dos líderes dessa denominação na região do Vale do Aço em Minas Gerais, numa área composta de 12 municípios.</p>
+            </div>
+            <div class="col-sm-4 caixas-sobre text-center" style="background-color:rgba(0,255,0,0.3);font-family: 'Pacifico', cursive;">
+                <span style="font-size:20pt">Valores</span>
+                <hr />
+                <p>Amar a Deus acima de tudo e trabalhar o discipulado numa visão de crescimento, para ser uma igreja contextualizada, que faz diferença no meio onde está inserida e que penetra em todas as camadas da sociedade, deixando a marca do sal e da luz do Senhor Jesus.</p>
+            </div>      
+        </div>
+        
+        <hr />
+        <div class="row col-sm-12 text-center " style="margin-bottom:30px;margin-top:30px;font-family: 'Lobster', cursive; ">
+            <span style="font-size:48pt;">Equipe de Obreiros</span>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-3 text-center">
+                <img src="Imagens/obreiro1.jpg" alt="Pastor Presidente Imagem" class="img-circle" height="250px" />
+                <p>Pastor Teste - Joaquim da Silva</p>
+            </div>
+            <div class="col-md-3 text-center">
+                <img src="Imagens/obreiro1.jpg" alt="Pastor Presidente Imagem" class="img-circle" height="250px" />
+                <p>Pastor Teste - Joaquim da Silva</p>
+            </div>
+            <div class="col-md-3 text-center">
+                <img src="Imagens/obreiro1.jpg" alt="Pastor Presidente Imagem" class="img-circle" height="250px" />
+                <p>Pastor Teste - Joaquim da Silva</p>
+            </div>
+            <div class="col-md-3 text-center">
+                <img src="Imagens/obreiro2.jpg" alt="Pastor Presidente Imagem" class="img-circle" height="250px" />
+                <p>Pastor Teste - Joaquim da Silva</p>
+            </div>
+            <div class="col-md-3 text-center">
+                <img src="Imagens/obreiro2.jpg" alt="Pastor Presidente Imagem" class="img-circle" height="250px" />
+                <p>Pastor Teste - Joaquim da Silva</p>
+            </div>
+            <div class="col-md-3 text-center">
+                <img src="Imagens/obreiro2.jpg" alt="Pastor Presidente Imagem" class="img-circle" height="250px" />
+                <p>Pastor Teste - Joaquim da Silva</p>
+            </div>
+            <div class="col-md-3 text-center">
+                <img src="Imagens/obreiro2.jpg" alt="Pastor Presidente Imagem" class="img-circle" height="250px" />
+                <p>Pastor Teste - Joaquim da Silva</p>
+            </div>
+            <div class="col-md-3 text-center">
+                <img src="Imagens/obreiro2.jpg" alt="Pastor Presidente Imagem" class="img-circle" height="250px" />
+                <p>Pastor Teste - Joaquim da Silva</p>
+            </div>
+        </div>
+            
+        
+    </div>
+</div>
+
+<div id="pregacoes-online">
+    Pregações Online
+</div>
+
+<div id="doacoes">
+    Doações
+</div>
+
+<div id="contato">
+    Contato
+</div>
+
+<div id="pedir-oracao">
+    Peça sua oração
+</div>
+
+
+<!-- Modais da página -->
+<!-- INICIO MODAL CADASTRO/EDIÇÃO AGENDA -->
+
+<div class="modal fade" id="modalCadastroAgenda" tabindex="-1" role="dialog" style="z-index:2017">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @*<form id="formulario_agenda">*@
+            @using (Html.BeginForm("CadastraAgenda", "Home", null, FormMethod.Post, null))
+            {
+                @Html.AntiForgeryToken()
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                    <h4 class="modal-title"> <span id="titulo_cadastro">Agenda Semanal - Cadastro</span></h4>
+                </div>
+
+                <div class="modal-body">
+                    <div>
+                        <h4 style="text-align:center">Período de vigência</h4>
+                        <br />
+                        <label for="inicio">De:</label>
+                        <input type="date" id="inicio" name="" class="form-control" />
+
+                        <label for="fim">até:</label>
+                        <input type="date" id="fim" name="fim" class="form-control" />
+                    </div>
+                    <hr />
+                    <div>
+                        <h4 style="text-align:center">Dados do Evento</h4>
+                        <label for="nome">Nome:</label>
+                        <input type="text" id="nome" name="nome" placeholder="e.g.: Culto de Missões" class="form-control" />
+
+                        <label for="local">Local:</label>
+                        <input type="text" name="local" id="local" placeholder="e.g.: Templo Sede" class="form-control" />
+
+                        <label for="descricao">Descrição: (Opcional)</label>
+                        <input type="text" name="descricao" id="descricao" class="form-control" placeholder="e.g.: Culto destinado a missões" />
+
+                        <label for="data">Data:</label>
+                        <input type="date" name="data" id="data" class="form-control" />
+
+                        <br />
+                        <label for="hora">Horário:</label>
+                        <div class="col-md-12 row">
+                            <div class="col-sm-3"><input type="number" id="hora" name="hora" placeholder="00" class="form-control" /></div>
+                            <div class="col-sm-1"><span>:</span></div>
+                            <div class="col-sm-3"><input type="number" name="minutos" placeholder="00" class="form-control" /></div>
+                        </div>
+
+                        <hr />
+                        <button type="button" class="btn btn-success" onclick="add_evento()"><span class="glyphicon-plus"></span>Adicionar evento</button>
+                        <hr />
+                    </div>
+
+                    <div class="row">
+
+                    </div>
+
+
+                    <table id="tabela_agenda" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <td>Nome</td>
+                                <td>Data</td>
+                                <td>Local</td>
+                            </tr>
+                        </thead>
+                        <tbody id="corpo_tabela"></tbody>
+
+                    </table>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="fechar_cadastro" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" id="enviar">Salvar</button>
+                </div>
+            }
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- FIM MODAL CADASTRO -->

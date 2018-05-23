@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="assembleiaModelStoreContainer" CdmEntityContainer="assembleiaEntities">
+    <EntitySetMapping Name="agenda">
+      <EntityTypeMapping TypeName="assembleiaModel.agenda">
+        <MappingFragment StoreEntitySet="agenda">
+          <ScalarProperty Name="idagenda" ColumnName="idagenda" />
+          <ScalarProperty Name="periodo" ColumnName="periodo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="evento">
+      <EntityTypeMapping TypeName="assembleiaModel.evento">
+        <MappingFragment StoreEntitySet="evento">
+          <ScalarProperty Name="idevento" ColumnName="idevento" />
+          <ScalarProperty Name="data" ColumnName="data" />
+          <ScalarProperty Name="descricao" ColumnName="descricao" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="local" ColumnName="local" />
+          <ScalarProperty Name="agenda_idagenda" ColumnName="agenda_idagenda" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
